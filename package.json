@@ -1,0 +1,70 @@
+{
+	"name": "match-file-contents",
+	"version": "0.0.0",
+	"description": "match file contents and rechange",
+	"license": "MIT",
+	"main": "dist/match-file-contents.js",
+	"module": "dist/match-file-contents.m.js",
+	"repository": "chinanf-boy/match-file-contents",
+	"author": {
+		"name": "chinanf-boy",
+		"email": "865501259@qq.com",
+		"url": "http://llever.com"
+	},
+	"engines": {
+		"node": ">=4"
+	},
+	"scripts": {
+		"test": "npm run build && nyc ava -v",
+		"dev": "microbundle watch",
+		"build": "microbundle",
+		"precommit": "lint-staged",
+		"pub": "npm run test && npm run npmUp && npm run git",
+		"npmUp": "npm version patch && npm publish",
+		"git": "git push && git push --tags"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	},
+	"size-limit": [
+		{
+			"path": "dist/match-file-contents.js",
+			"gzip": false
+		}
+	],
+	"lint-staged": {
+		"linters": {
+			"*.{js,json,css,md}": [
+				"prettier --single-quote --trailing-comma es5 --write",
+				"git add"
+			]
+		},
+		"ignore": [
+			"**/dist/*.js"
+		]
+	},
+	"files": [
+		"src",
+		"lib"
+	],
+	"keywords": [
+		""
+	],
+	"dependencies": {},
+	"devDependencies": {
+		"codecov": "^3.0.2",
+		"nyc": "^11.8.0",
+		"lint-staged": "^7.0.0",
+		"microbundle": "^0.4.4",
+		"husky": "1.0.0-rc.13",
+		"ava": "^0.25.0"
+	},
+	"nyc": {
+		"reporter": [
+			"lcov",
+			"text"
+		]
+	}
+}
