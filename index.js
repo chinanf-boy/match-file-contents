@@ -59,12 +59,8 @@ function parse(lines, matchesStart, matchesEnd, matchTag) {
 	}
 
 	if (hasStart ^ hasEnd) {
-		tags.push({
-			hasStart: hasStart,
-			hasEnd: hasEnd,
-			startIdx: startIdx,
-			endIdx: endIdx,
-		});
+		let whatLine = hasStart ? lines[startIdx] : lines[endIdx];
+		throw new Error(`${whatLine} - not Closed`);
 	}
 
 	if (tags.length === 1 && matchTag) {
@@ -104,11 +100,6 @@ exports = module.exports = function updateSection(
 	oneStore = null;
 
 	let tag = tags[index];
-
-	if (tag.hasStart ^ tag.hasEnd) {
-		let whatLine = tag.hasStart ? lines[tag.startIdx] : lines[tag.endIdx];
-		throw new Error(`${whatLine} - not Closed`);
-	}
 
 	let sectionLines = section.split(os.EOL),
 		dropN = tag.endIdx - tag.startIdx + 1;
