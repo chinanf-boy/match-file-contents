@@ -1,6 +1,6 @@
 {
 	"name": "match-file-contents",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"description": "match file contents and rechange",
 	"license": "MIT",
 	"main": "dist/match-file-contents.js",
