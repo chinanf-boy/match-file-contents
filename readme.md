@@ -32,6 +32,8 @@ var original = [
   , 'Til next time'
 ].join('\n');
 
+let updateDate = original
+
 var update = [
     'START -- GENERATED GOODNESS'
   , 'this was painstakingly re-generated'
@@ -51,8 +53,10 @@ function matchesEnd(line) {
 let tags = updateSection.parse(original.split('\n', matchesStart, matchesEnd, true)
 // Array - tags.length = 1
 for(let i = 0; i < tags.length; i ++){
-	var updated = updateSection(original, update, matchesStart, matchesEnd, i);
-	console.log(updated);
+	// note the update data is from 0 => tags.length, one run one change ,
+	// next time rePut updateDate to  updateSection(updateDate...
+	updateDate = updateSection(updateDate, update, matchesStart, matchesEnd, i );
+	console.log(updateDate);
 }
 ```
 
@@ -74,27 +78,20 @@ END -- GENERATED GOODNESS
 Til next time
 ```
 
-<!--
 ## API
 
-### matchFileContents(input, [options])
+just like [update-section#API](https://github.com/thlorenz/update-section#api)
 
-#### input
+> but
 
-| name: | input        |
-| ----- | ------------ |
-| Type: | `string`     |
-| Desc: | Lorem ipsum. |
+- updateSection(updateDate, update, matchesStart, matchesEnd, index)
 
-#### options
+> index = { 0 ~ tags.length}
 
-##### foo
+- updateSection.parse(original.split('\n', matchesStart, matchesEnd, keep)
 
-| name:    | foo          |
-| -------- | ------------ |
-| Type:    | `boolean`    |
-| Default: | `false`      |
-| Desc:    | Lorem ipsum. | -->
+> `keep` if `true`, when `tags.length === 1`, can store the result tags, use by
+> `updateSection`
 
 ## concat
 
