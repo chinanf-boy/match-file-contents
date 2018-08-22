@@ -2,7 +2,7 @@ import path from 'path';
 import os from 'os';
 import fs from 'fs';
 import test from 'ava';
-import match from '../index';
+import match from '..';
 const testDir = __dirname;
 function matchesStart(line) {
 	return line.startsWith('<!-- doc-templite START');

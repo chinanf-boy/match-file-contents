@@ -15,12 +15,66 @@ yarn add match-file-contents
 ## Usage
 
 ```js
-const matchFileContents = require('match-file-contents');
+var updateSection = require('match-file-contents');
 
-matchFileContents('unicorns');
-//=> 'unicorns & rainbows'
+var original = [
+    '# Some Project'
+  , ''
+  , 'Does a bunch of things'
+  , ''
+  , 'START -- GENERATED GOODNESS'
+  , 'this was painstakingly generated'
+  , 'as was this'
+  , 'END -- GENERATED GOODNESS' , ''
+  , ''
+  , '## The End'
+  , ''
+  , 'Til next time'
+].join('\n');
+
+var update = [
+    'START -- GENERATED GOODNESS'
+  , 'this was painstakingly re-generated'
+  , 'and we added another line'
+  , 'here'
+  , 'END -- GENERATED GOODNESS'
+].join('\n');
+
+function matchesStart(line) {
+  return (/START -- GENERATED GOODNESS/).test(line);
+}
+
+function matchesEnd(line) {
+  return (/END -- GENERATED GOODNESS/).test(line);
+}
+
+let tags = updateSection.parse(original.split('\n', matchesStart, matchesEnd, true)
+// Array - tags.length = 1
+for(let i = 0; i < tags.length; i ++){
+	var updated = updateSection(original, update, matchesStart, matchesEnd, i);
+	console.log(updated);
+}
 ```
 
+## Output
+
+```
+# Some Project
+
+Does a bunch of things
+
+START -- GENERATED GOODNESS
+this was painstakingly re-generated
+and we added another line
+here
+END -- GENERATED GOODNESS
+
+## The End
+
+Til next time
+```
+
+<!--
 ## API
 
 ### matchFileContents(input, [options])
@@ -40,7 +94,13 @@ matchFileContents('unicorns');
 | -------- | ------------ |
 | Type:    | `boolean`    |
 | Default: | `false`      |
-| Desc:    | Lorem ipsum. |
+| Desc:    | Lorem ipsum. | -->
+
+## concat
+
+- [update-section](https://github.com/thlorenz/update-section) Updates a section inside a file with newer content while removing the old content.
+
+> the lib is single section rechange , but `match-file-contents` can more
 
 ## Use by
 
