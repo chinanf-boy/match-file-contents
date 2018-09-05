@@ -1,6 +1,5 @@
 'use strict';
 
-const os = require('os');
 let oneStore = null;
 
 /**
@@ -93,7 +92,7 @@ exports = module.exports = function updateSection(
 ) {
 	if (!content) return section;
 
-	let lines = content.split(os.EOL);
+	let lines = content.split('\n');
 	if (!lines.length) return section;
 
 	let tags = oneStore || parse(lines, matchesStart, matchesEnd);
@@ -101,12 +100,12 @@ exports = module.exports = function updateSection(
 
 	let tag = tags[index];
 
-	let sectionLines = section.split(os.EOL),
+	let sectionLines = section.split('\n'),
 		dropN = tag.endIdx - tag.startIdx + 1;
 
 	[].splice.apply(lines, [tag.startIdx, dropN].concat(sectionLines));
 
-	return lines.join(os.EOL);
+	return lines.join('\n');
 };
 
 exports.parse = parse;
