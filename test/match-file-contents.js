@@ -2,12 +2,11 @@ import path from 'path';
 import os from 'os';
 import fs from 'fs';
 import test from 'ava';
-import match from '..';
+import match, { parse } from '..';
 const testDir = __dirname;
 function matchesStart(line) {
 	return line.startsWith('<!-- doc-templite START');
 }
-
 function matchesEnd(line) {
 	return line.startsWith('<!-- doc-templite END');
 }
@@ -18,8 +17,7 @@ const getF = p => fs.readFileSync(p, 'utf8');
 test('one match will keep', t => {
 	const p = getPath('./feature/one-match.md');
 	const content = getF(p);
-
-	let tags = match.parse(content.split(os.EOL), matchesStart, matchesEnd, true);
+	let tags = parse(content.split(os.EOL), matchesStart, matchesEnd, true);
 	t.is(tags.length, 1);
 
 	const newContent1 = `hello1 match-file-contents`;
