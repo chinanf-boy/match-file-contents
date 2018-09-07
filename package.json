@@ -5,6 +5,7 @@
 	"license": "MIT",
 	"main": "dist/match-file-contents.js",
 	"module": "dist/match-file-contents.m.js",
+	"types": "./dist/index.d.ts",
 	"repository": "chinanf-boy/match-file-contents",
 	"author": {
 		"name": "chinanf-boy",
@@ -16,8 +17,7 @@
 	},
 	"scripts": {
 		"test": "npm run build && nyc ava -v",
-		"dev": "microbundle watch",
-		"build": "microbundle",
+		"build": "tsc && microbundle dist/index.js",
 		"precommit": "lint-staged",
 		"pub": "npm run test && npm run npmUp && npm run git",
 		"npmUp": "npm version patch && npm publish",
@@ -46,20 +46,20 @@
 		]
 	},
 	"files": [
-		"src",
-		"lib"
+		"**/dist/*.d.ts"
 	],
 	"keywords": [
-		""
+		"match",
+		"contents"
 	],
 	"dependencies": {},
 	"devDependencies": {
+		"ava": "^0.25.0",
 		"codecov": "^3.0.2",
-		"nyc": "^11.8.0",
+		"husky": "1.0.0-rc.13",
 		"lint-staged": "^7.0.0",
 		"microbundle": "^0.4.4",
-		"husky": "1.0.0-rc.13",
-		"ava": "^0.25.0"
+		"nyc": "^13.0.1"
 	},
 	"nyc": {
 		"reporter": [
