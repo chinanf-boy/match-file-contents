@@ -1,4 +1,4 @@
-# match-file-contents [![Build Status](https://travis-ci.org/chinanf-boy/match-file-contents.svg?branch=master)](https://travis-ci.org/chinanf-boy/match-file-contents) [![codecov](https://codecov.io/gh/chinanf-boy/match-file-contents/badge.svg?branch=master)](https://codecov.io/gh/chinanf-boy/match-file-contents?branch=master)
+# match-file-contents [![Build Status](https://travis-ci.org/chinanf-boy/match-file-contents.svg?branch=master)](https://travis-ci.org/chinanf-boy/match-file-contents) [![codecov](https://codecov.io/gh/chinanf-boy/match-file-contents/badge.svg?branch=master)](https://codecov.io/gh/chinanf-boy/match-file-contents?branch=master) [![TypeScript](https://badges.frapsoft.com/typescript/code/typescript.svg?v=101)](https://github.com/ellerbrock/typescript-badges/)
 
 「 match file contents and rechange 」
 
@@ -15,47 +15,54 @@ yarn add match-file-contents
 ## Usage
 
 ```js
-var updateSection = require('match-file-contents');
+var match = require('..');
 
 var original = [
-    '# Some Project'
-  , ''
-  , 'Does a bunch of things'
-  , ''
-  , 'START -- GENERATED GOODNESS'
-  , 'this was painstakingly generated'
-  , 'as was this'
-  , 'END -- GENERATED GOODNESS' , ''
-  , ''
-  , '## The End'
-  , ''
-  , 'Til next time'
+	'# Some Project',
+	'',
+	'Does a bunch of things',
+	'',
+	'START -- GENERATED GOODNESS',
+	'this was painstakingly generated',
+	'as was this',
+	'END -- GENERATED GOODNESS',
+	'',
+	'',
+	'## The End',
+	'',
+	'Til next time',
 ].join('\n');
 
-let updateDate = original
+let updateDate = original;
 
 var update = [
-    'START -- GENERATED GOODNESS'
-  , 'this was painstakingly re-generated'
-  , 'and we added another line'
-  , 'here'
-  , 'END -- GENERATED GOODNESS'
+	'START -- GENERATED GOODNESS',
+	'this was painstakingly re-generated',
+	'and we added another line',
+	'here',
+	'END -- GENERATED GOODNESS',
 ].join('\n');
 
 function matchesStart(line) {
-  return (/START -- GENERATED GOODNESS/).test(line);
+	return /START -- GENERATED GOODNESS/.test(line);
 }
 
 function matchesEnd(line) {
-  return (/END -- GENERATED GOODNESS/).test(line);
+	return /END -- GENERATED GOODNESS/.test(line);
 }
 
-let tags = updateSection.parse(original.split('\n', matchesStart, matchesEnd, true)
+let tags = match.parse(original.split('\n'), matchesStart, matchesEnd, true);
 // Array - tags.length = 1
-for(let i = 0; i < tags.length; i ++){
+for (let i = 0; i < tags.length; i++) {
 	// note the update data is from 0 => tags.length, one run one change ,
 	// next time rePut updateDate to  updateSection(updateDate...
-	updateDate = updateSection(updateDate, update, matchesStart, matchesEnd, i );
+	updateDate = match.updateSection(
+		updateDate,
+		update,
+		matchesStart,
+		matchesEnd,
+		i
+	);
 	console.log(updateDate);
 }
 ```
