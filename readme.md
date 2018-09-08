@@ -95,7 +95,7 @@ just like [update-section#API](https://github.com/thlorenz/update-section#api)
 
 > index = { 0 ~ tags.length}
 
-- updateSection.parse(original.split('\n', matchesStart, matchesEnd, keep)
+- parse(original.split('\n', matchesStart, matchesEnd, keep)
 
 > `keep` if `true`, when `tags.length === 1`, can store the result tags, use by
 > `updateSection`
